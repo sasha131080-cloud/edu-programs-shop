@@ -418,9 +418,8 @@
         syncCards();
     });
 
-    // Endpoint приёма заявок. Сейчас FormSubmit (без регистрации).
-    // Можно заменить на Google Apps Script (apps_script.gs) позже.
-    const FORM_ENDPOINT = 'https://formsubmit.co/ajax/kvant.aa@mail.ru';
+    // Endpoint приёма заявок: Google Apps Script Web App (EduPrograms)
+    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyC76Bl2zSpsTZIfDSfzoPECW7kIVwrmPGcEOMT3thmQWa4beTQJ2377Bjl3cJ26TYYAQ/exec';
     const FALLBACK_EMAIL = 'kvant.aa@mail.ru';
 
     function showMsg(el, text, cls) {
@@ -429,7 +428,7 @@
         el.style.display = 'block';
     }
 
-    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const org = document.getElementById('org').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -440,37 +439,51 @@
             showMsg(msg, 'Заполните обязательные поля: организация и e-mail.', 'err');
             return;
         }
-        const payload = {
-            _subject: 'Заявка EduPrograms: ' + org,
-            _template: 'table',
-            _captcha: 'false',
-            _honey: '',
-            Организация: org,
-            'E-mail': email,
-            ИНН: document.getElementById('inn').value.trim(),
-            'Контактное лицо': document.getElementById('contact').value.trim(),
-            Телефон: document.getElementById('phone').value.trim(),
-            Профессии: [...selected].join('; ') || 'не выбрано',
-            Комментарий: document.getElementById('comment').value.trim()
+        const values = {
+            org: org,
+            email: email,
+            inn: document.getElementById('inn').value.trim(),
+            contact: document.getElementById('contact').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            comment: document.getElementById('comment').value.trim(),
+            professions: [...selected].join('; ')
         };
 
+        let sent = false;
         if (FORM_ENDPOINT) {
             try {
-                const r = await fetch(FORM_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const j = await r.json().catch(() => null);
-                if (r.ok && j && j.success) {
-                    showMsg(msg, 'Заявка отправлена! В течение 30 минут в рабочее время пришлём счёт и ссылку на оплату.', 'ok');
-                    e.target.reset();
-                    selected.clear();
-                    chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                    syncCards();
-                    return;
-                }
-            } catch (err) { /* fallthrough в mailto */ }
+                // Кросс-доменная отправка через скрытый iframe (form-urlencoded),
+                // Google Apps Script принимает e.parameter без CORS-проблем
+                const iframe = document.createElement('iframe');
+                iframe.name = 'gd_submit_' + Date.now();
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                const f = document.createElement('form');
+                f.method = 'POST';
+                f.action = FORM_ENDPOINT;
+                f.target = iframe.name;
+                const add = (k, v) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; f.appendChild(i); };
+                add('org', values.org);
+                add('email', values.email);
+                add('inn', values.inn);
+                add('contact', values.contact);
+                add('phone', values.phone);
+                add('comment', values.comment);
+                add('professions', values.professions);
+                document.body.appendChild(f);
+                f.submit();
+                setTimeout(() => { iframe.remove(); f.remove(); }, 4000);
+                sent = true;
+            } catch (err) { sent = false; }
+        }
+
+        if (sent) {
+            showMsg(msg, 'Заявка отправлена! В течение 30 минут в рабочее время пришлём счёт и ссылку на оплату.', 'ok');
+            e.target.reset();
+            selected.clear();
+            chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            syncCards();
+            return;
         }
 
         showMsg(msg, 'Форма подключается. Пока отправьте заявку по почте:', 'err');
