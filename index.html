@@ -146,6 +146,50 @@
     </div>
 </div>
 
+<section id="form">
+    <div class="form-wrap">
+        <h3>Заявка на комплекты</h3>
+        <p class="sub">Ответим на e-mail в течение 30 минут в рабочее время. Никаких звонков.</p>
+        <form id="orderForm">
+            <div class="chips" id="chipArea"></div>
+            <div class="form-row single">
+                <div>
+                    <label>Организация *</label>
+                    <input type="text" id="org" required placeholder="ООО «Учебный центр»">
+                </div>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label>ИНН</label>
+                    <input type="text" id="inn" placeholder="1234567890">
+                </div>
+                <div>
+                    <label>E-mail *</label>
+                    <input type="email" id="email" required placeholder="mail@centr.ru">
+                </div>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label>Контактное лицо</label>
+                    <input type="text" id="contact" placeholder="ФИО">
+                </div>
+                <div>
+                    <label>Телефон (необязательно)</label>
+                    <input type="text" id="phone" placeholder="+7 ___ ___-__-__">
+                </div>
+            </div>
+            <div class="form-row single">
+                <div>
+                    <label>Комментарий</label>
+                    <textarea id="comment" rows="3" placeholder="Нужна программа другой профессии? Напишите какой — сделаем под заказ за 1–2 дня."></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%; text-align:center">Отправить заявку</button>
+            <div class="form-msg" id="formMsg"></div>
+            <p class="hint" style="margin-top:12px">Отправляя форму, вы соглашаетесь с обработкой персональных данных.</p>
+        </form>
+    </div>
+</section>
 <section id="catalog">
     <h2 class="sec-title">Каталог готовых комплектов</h2>
     <p class="sec-sub">Выберите профессии — добавьте их в заявку. Комплекты, отмеченные «в наличии», выдаются сразу после оплаты.</p>
@@ -295,50 +339,7 @@
     </div>
 </section>
 
-<section id="form">
-    <div class="form-wrap">
-        <h3>Заявка на комплекты</h3>
-        <p class="sub">Ответим на e-mail в течение 30 минут в рабочее время. Никаких звонков.</p>
-        <form id="orderForm">
-            <div class="chips" id="chipArea"></div>
-            <div class="form-row single">
-                <div>
-                    <label>Организация *</label>
-                    <input type="text" id="org" required placeholder="ООО «Учебный центр»">
-                </div>
-            </div>
-            <div class="form-row">
-                <div>
-                    <label>ИНН</label>
-                    <input type="text" id="inn" placeholder="1234567890">
-                </div>
-                <div>
-                    <label>E-mail *</label>
-                    <input type="email" id="email" required placeholder="mail@centr.ru">
-                </div>
-            </div>
-            <div class="form-row">
-                <div>
-                    <label>Контактное лицо</label>
-                    <input type="text" id="contact" placeholder="ФИО">
-                </div>
-                <div>
-                    <label>Телефон (необязательно)</label>
-                    <input type="text" id="phone" placeholder="+7 ___ ___-__-__">
-                </div>
-            </div>
-            <div class="form-row single">
-                <div>
-                    <label>Комментарий</label>
-                    <textarea id="comment" rows="3" placeholder="Нужна программа другой профессии? Напишите какой — сделаем под заказ за 1–2 дня."></textarea>
-                </div>
-            </div>
-            <button type="submit" class="btn-primary" style="width:100%; text-align:center">Отправить заявку</button>
-            <div class="form-msg" id="formMsg"></div>
-            <p class="hint" style="margin-top:12px">Отправляя форму, вы соглашаетесь с обработкой персональных данных.</p>
-        </form>
-    </div>
-</section>
+
 
 <section id="faq">
     <h2 class="sec-title">Частые вопросы</h2>
