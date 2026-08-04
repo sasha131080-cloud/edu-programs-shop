@@ -418,25 +418,30 @@
         syncCards();
     });
 
-    const WORKER_URL = ''; // будет заполнено после деплоя Cloudflare Worker
+    // Endpoint Google Apps Script Web App (заполнить после деплоя, см. apps_script.gs)
+    const FORM_ENDPOINT = '';
     const FALLBACK_EMAIL = 'kvant.aa@mail.ru';
+
+    function showMsg(el, text, cls) {
+        el.className = 'form-msg ' + cls;
+        el.textContent = text;
+        el.style.display = 'block';
+    }
 
     document.getElementById('orderForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const org = document.getElementById('org').value.trim();
         const email = document.getElementById('email').value.trim();
         const msg = document.getElementById('formMsg');
-        msg.className = 'form-msg';
         msg.style.display = 'none';
 
         if (!org || !email) {
-            msg.textContent = 'Заполните обязательные поля: организация и e-mail.';
-            msg.classList.add('err');
-            msg.style.display = 'block';
+            showMsg(msg, 'Заполните обязательные поля: организация и e-mail.', 'err');
             return;
         }
         const payload = {
-            org, email,
+            org: org,
+            email: email,
             inn: document.getElementById('inn').value.trim(),
             contact: document.getElementById('contact').value.trim(),
             phone: document.getElementById('phone').value.trim(),
@@ -444,27 +449,45 @@
             professions: [...selected]
         };
 
-        if (WORKER_URL) {
+        if (FORM_ENDPOINT) {
             try {
-                const r = await fetch(WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (r.ok) {
-                    msg.textContent = 'Заявка принята! В течение 30 минут в рабочее время пришлём счёт и ссылку на оплату.';
-                    msg.classList.add('ok');
-                    msg.style.display = 'block';
-                    e.target.reset();
-                    selected.clear();
-                    chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                    syncCards();
-                    return;
-                }
-            } catch (err) { /* fallthrough */ }
+                // Отправка через скрытый iframe (без CORS-проблем)
+                const iframe = document.createElement('iframe');
+                iframe.name = 'gd_submit_' + Date.now();
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                const f = document.createElement('form');
+                f.method = 'POST';
+                f.action = FORM_ENDPOINT;
+                f.target = iframe.name;
+                const add = (k, v) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; f.appendChild(i); };
+                add('org', payload.org);
+                add('email', payload.email);
+                add('inn', payload.inn);
+                add('contact', payload.contact);
+                add('phone', payload.phone);
+                add('comment', payload.comment);
+                add('professions', payload.professions.join('; '));
+                document.body.appendChild(f);
+                f.submit();
+                setTimeout(() => { iframe.remove(); f.remove(); }, 3000);
+            } catch (err) { /* fallthrough в mailto */ }
+            showMsg(msg, 'Заявка отправлена! В течение 30 минут в рабочее время пришлём счёт и ссылку на оплату.', 'ok');
+            e.target.reset();
+            selected.clear();
+            chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            syncCards();
+            return;
         }
+
+        showMsg(msg, 'Форма подключается. Пока отправьте заявку по почте:', 'err');
         const mailto = 'mailto:' + FALLBACK_EMAIL + '?subject=' + encodeURIComponent('Заявка EduPrograms') +
             '&body=' + encodeURIComponent(JSON.stringify(payload, null, 2));
-        window.location.href = mailto;
-        msg.textContent = 'Откроется почтовый клиент с готовой заявкой. Отправьте письмо — ответим в течение 30 минут.';
-        msg.classList.add('ok');
-        msg.style.display = 'block';
+        const a = document.createElement('a');
+        a.href = mailto;
+        a.textContent = 'Отправить заявку по почте';
+        msg.appendChild(document.createElement('br'));
+        msg.appendChild(a);
     });
 </script>
 </body>
