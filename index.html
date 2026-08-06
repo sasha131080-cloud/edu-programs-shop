@@ -9,7 +9,7 @@
     <meta property="og:title" content="Готовые образовательные программы для учебных центров">
     <meta property="og:description" content="Комплекты ПО по Приказу № 534: программа, методичка, тесты, КОМ. Автовыдача после оплаты.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sasha131080-cloud.github.io/edu-programs/">
+    <meta property="og:url" content="https://sasha131080-cloud.github.io/edu-programs-shop/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#2563eb">
@@ -99,6 +99,22 @@
         .faq-item[open] summary:after { content: "–"; }
         .faq-item p { padding: 0 24px 20px; color: #475569; }
 
+        /* Блоки типов обучения в форме */
+        .type-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin-bottom: 20px; transition: box-shadow 0.3s; }
+        .type-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .type-title span { font-size: 14px; color: #64748b; font-weight: 500; }
+        .type-block .form-row { margin-bottom: 12px; }
+        .btn-add { background: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 14px; font-family: inherit; transition: background 0.2s; }
+        .btn-add:hover { background: #1d4ed8; }
+        .or-divider { text-align: center; color: #94a3b8; font-size: 13px; margin: 10px 0; position: relative; }
+        .or-divider:before, .or-divider:after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: #e2e8f0; }
+        .or-divider:before { left: 0; } .or-divider:after { right: 0; }
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 12px; background: white; border-radius: 10px; overflow: hidden; }
+        .items-table th { background: #eef2ff; color: #4f46e5; font-size: 13px; font-weight: 600; text-align: left; padding: 10px 12px; }
+        .items-table td { padding: 9px 12px; border-top: 1px solid #f1f5f9; font-size: 14px; color: #334155; }
+        .btn-del { background: #fee2e2; color: #b91c1c; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 14px; line-height: 1; }
+        .btn-del:hover { background: #fecaca; }
+
         footer { background: #0f172a; color: #94a3b8; padding: 50px 40px; text-align: center; }
         footer b { color: white; }
         .doc-list { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 30px 0; }
@@ -138,20 +154,20 @@
             <a href="#form" class="btn-secondary">Заказать под свою профессию</a>
         </div>
         <div class="hero-points">
-            <div class="point"><b>35+ профессий</b><span>в наличии и под заказ</span></div>
-            <div class="point"><b>6 документов</b><span>в каждом комплекте</span></div>
+            <div class="point"><b>5 000+ профессий</b><span>по Перечню Приказа № 534</span></div>
+            <div class="point"><b>ПО · ДПО · ДО · Курсы</b><span>все виды обучения</span></div>
             <div class="point"><b>4 900 ₽</b><span>комплект, от 19 900 ₽ пакет из 5</span></div>
-            <div class="point"><b>Автовыдача</b><span>файлы после оплаты, без звонков</span></div>
+            <div class="point"><b>Автовыдача</b><span>файлы после оплаты на e-mail</span></div>
         </div>
     </div>
 </div>
 
 <section id="form">
     <div class="form-wrap">
-        <h3>Заявка на комплекты</h3>
-        <p class="sub">Ответим на e-mail в течение 30 минут в рабочее время. Никаких звонков.</p>
+        <h3>Заявка на комплекты программ</h3>
+        <p class="sub">Выберите виды обучения и укажите нужные направления — пришлём счёт и комплекты на e-mail. Вопросы по телефону +7 (3902) 26-27-65.</p>
         <form id="orderForm">
-            <div class="chips" id="chipArea"></div>
+            <div id="typesArea"></div>
             <div class="form-row single">
                 <div>
                     <label>Организация *</label>
@@ -181,7 +197,7 @@
             <div class="form-row single">
                 <div>
                     <label>Комментарий</label>
-                    <textarea id="comment" rows="3" placeholder="Нужна программа другой профессии? Напишите какой — сделаем под заказ за 1–2 дня."></textarea>
+                    <textarea id="comment" rows="3" placeholder="Дополнительные пожелания, объём часов, документы для лицензирования"></textarea>
                 </div>
             </div>
             <button type="submit" class="btn-primary" style="width:100%; text-align:center">Отправить заявку</button>
@@ -191,118 +207,63 @@
     </div>
 </section>
 <section id="catalog">
-    <h2 class="sec-title">Каталог готовых комплектов</h2>
-    <p class="sec-sub">Выберите профессии — добавьте их в заявку. Комплекты, отмеченные «в наличии», выдаются сразу после оплаты.</p>
+    <h2 class="sec-title">Что мы готовим</h2>
+    <p class="sec-sub">Готовые комплекты документов под все виды обучения: ПО, ДПО, ДО и курсы.</p>
     <div class="catalog" id="catalogGrid">
-        <div class="card" data-name="Стропальщик (код 18897)">
-            <span class="code">Код профессии 18897</span>
-            <h3>Стропальщик</h3>
-            <span class="status ready">В наличии</span>
+        <div class="card">
+            <span class="code">Профессиональное обучение</span>
+            <h3>ПО</h3>
+            <span class="status ready">5 100+ профессий по Приказу № 534</span>
             <ul class="docs">
-                <li>Программа ПО, 80 часов</li>
-                <li>Методическое пособие</li>
-                <li>Методичка «вопросы-ответы»</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тест для экзамена</li>
+                <li>Подготовка / переподготовка / повышение квалификации рабочих</li>
+                <li>Программа ПО, методическое пособие, КОМ, тесты</li>
+                <li>Любая профессия из Перечня № 534</li>
             </ul>
             <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
+                <div class="price">от 4 900 ₽</div>
+                <button class="pick" data-type="ПО">Выбрать</button>
             </div>
         </div>
-        <div class="card" data-name="Машинист бульдозера (код 13583)">
-            <span class="code">Код профессии 13583</span>
-            <h3>Машинист бульдозера</h3>
-            <span class="status ready">В наличии</span>
+        <div class="card">
+            <span class="code">Дополнительное профессиональное образование</span>
+            <h3>ДПО</h3>
+            <span class="status ready">Под заказ</span>
             <ul class="docs">
-                <li>Программа ПО (подготовка / переподготовка / повышение)</li>
-                <li>Методическое пособие</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тесты для экзамена</li>
+                <li>Профессиональная переподготовка</li>
+                <li>Повышение квалификации специалистов</li>
+                <li>По актуальным требованиям (Приказ № 266)</li>
             </ul>
             <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
+                <div class="price">от 4 900 ₽</div>
+                <button class="pick" data-type="ДПО">Выбрать</button>
             </div>
         </div>
-        <div class="card" data-name="Машинист катка самоходного (код 13753)">
-            <span class="code">Код профессии 13753</span>
-            <h3>Машинист катка самоходного</h3>
-            <span class="status ready">В наличии</span>
+        <div class="card">
+            <span class="code">Дополнительное образование</span>
+            <h3>ДО</h3>
+            <span class="status ready">Под заказ</span>
             <ul class="docs">
-                <li>Программа ПО, 80 часов</li>
-                <li>Методическое пособие</li>
-                <li>Методичка «вопросы-ответы»</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тесты для экзамена</li>
+                <li>Дополнительные общеразвивающие программы</li>
+                <li>Дополнительные предпрофессиональные программы</li>
+                <li>Для детей и взрослых</li>
             </ul>
             <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
+                <div class="price">от 4 900 ₽</div>
+                <button class="pick" data-type="ДО">Выбрать</button>
             </div>
         </div>
-        <div class="card" data-name="Машинист автогрейдера (код 13509)">
-            <span class="code">Код профессии 13509</span>
-            <h3>Машинист автогрейдера</h3>
-            <span class="status ready">В наличии</span>
+        <div class="card">
+            <span class="code">Курсы</span>
+            <h3>Курсы</h3>
+            <span class="status ready">Под заказ</span>
             <ul class="docs">
-                <li>Программа ПО, 80 часов</li>
-                <li>Методическое пособие</li>
-                <li>Методичка «вопросы-ответы»</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тесты для экзамена</li>
+                <li>Краткосрочные обучающие курсы</li>
+                <li>Семинары, тренинги, стажировки</li>
+                <li>Технический минимум и другие направления</li>
             </ul>
             <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
-            </div>
-        </div>
-        <div class="card" data-name="Машинист крана автомобильного (код 13788)">
-            <span class="code">Код профессии 13788</span>
-            <h3>Машинист крана автомобильного</h3>
-            <span class="status fixing">Готовится · закажите — сделаем за 1–2 дня</span>
-            <ul class="docs">
-                <li>Программа ПО, 80 часов</li>
-                <li>Методическое пособие</li>
-                <li>Методичка «вопросы-ответы»</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тест для экзамена</li>
-            </ul>
-            <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
-            </div>
-        </div>
-        <div class="card" data-name="Водитель погрузчика (код 11453)">
-            <span class="code">Код профессии 11453</span>
-            <h3>Водитель погрузчика</h3>
-            <span class="status fixing">Готовится · закажите — сделаем за 1–2 дня</span>
-            <ul class="docs">
-                <li>Программа ПО, 80 часов</li>
-                <li>Методическое пособие</li>
-                <li>Методичка «вопросы-ответы»</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тест для экзамена</li>
-            </ul>
-            <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
-            </div>
-        </div>
-        <div class="card" data-name="Машинист экскаватора (код 14390)">
-            <span class="code">Код профессии 14390</span>
-            <h3>Машинист экскаватора</h3>
-            <span class="status fixing">Готовится · закажите — сделаем за 1–2 дня</span>
-            <ul class="docs">
-                <li>Программа ПО, 80 часов</li>
-                <li>Методическое пособие</li>
-                <li>Методичка «вопросы-ответы»</li>
-                <li>Контрольно-оценочные материалы</li>
-                <li>Тест для экзамена</li>
-            </ul>
-            <div class="price-row">
-                <div class="price">4 900 ₽</div>
-                <button class="pick">Выбрать</button>
+                <div class="price">от 4 900 ₽</div>
+                <button class="pick" data-type="Курсы">Выбрать</button>
             </div>
         </div>
     </div>
@@ -311,14 +272,12 @@
 <section id="pricing">
     <div class="bundle">
         <div>
-            <h3>Пакет «Старт учебного центра» — 5 профессий</h3>
-            <p>Программы по строительным и складским профессиям — самый ходовой набор для лицензирования и запуска обучения.</p>
+            <h3>Пакет «Старт учебного центра» — 5 комплектов</h3>
+            <p>Любые 5 комплектов программ (ПО, ДПО, ДО или курсы) — самый ходовой набор для лицензирования и запуска обучения.</p>
             <ul>
-                <li>Стропальщик</li>
-                <li>Машинист бульдозера</li>
-                <li>Машинист катка</li>
-                <li>Водитель погрузчика</li>
-                <li>Машинист экскаватора</li>
+                <li>5 комплектов на выбор</li>
+                <li>Все виды обучения: ПО, ДПО, ДО, курсы</li>
+                <li>Под вашу организацию</li>
             </ul>
         </div>
         <div style="text-align:right">
@@ -330,9 +289,9 @@
 
 <section id="how">
     <h2 class="sec-title">Как это работает</h2>
-    <p class="sec-sub">Без звонков и переговоров — всё по письменной заявке</p>
+    <p class="sec-sub">Всё по письменной заявке — пришлём счёт и комплекты на e-mail, ответим на вопросы по телефону</p>
     <div class="steps">
-        <div class="step"><div class="n">1</div><h4>Заявка</h4><p>Выбираете профессии и заполняете форму: название организации, ИНН, e-mail.</p></div>
+        <div class="step"><div class="n">1</div><h4>Заявка</h4><p>Выбираете виды обучения, нужные направления и заполняете форму: название организации, ИНН, e-mail.</p></div>
         <div class="step"><div class="n">2</div><h4>Оплата</h4><p>Счёт для юрлица или оплата картой онлайн. Автоматическое подтверждение на e-mail.</p></div>
         <div class="step"><div class="n">3</div><h4>Автовыдача</h4><p>После оплаты получаете ссылку на скачивание комплекта файлов (Яндекс.Диск).</p></div>
         <div class="step"><div class="n">4</div><h4>Адаптация</h4><p>Комплект выдаётся с титульными данными под вашу организацию. Готов к лицензированию.</p></div>
@@ -355,69 +314,175 @@
 <footer>
     <b>EduPrograms</b> — готовые комплекты образовательных программ для учебных центров<br><br>
     Продавец: ООО «КВАНТ+» · ОГРН 1151901001108 · ИНН/КПП 1901123634/190101001<br>
-    Республика Хакасия, г. Абакан · E-mail: kvant.aa@mail.ru<br><br>
+    Республика Хакасия, г. Абакан · E-mail: kvant.aa@mail.ru · Тел: +7 (3902) 26-27-65, 8-908-326-27-65<br><br>
     © 2026 EduPrograms. Все права защищены.
 </footer>
 
+<script src="professions.js"></script>
 <script>
-    const PROFESSIONS = [
-        { name: 'Стропальщик (код 18897)', price: 4900 },
-        { name: 'Машинист бульдозера (код 13583)', price: 4900 },
-        { name: 'Машинист катка (код 13753)', price: 4900 },
-        { name: 'Машинист автогрейдера (код 13509)', price: 4900 },
-        { name: 'Машинист крана автомобильного (код 13788)', price: 4900 },
-        { name: 'Водитель погрузчика (код 11453)', price: 4900 },
-        { name: 'Машинист экскаватора (код 14390)', price: 4900 }
-    ];
-    const selected = new Set();
+    // Типы обучения и их ярлыки
+    const LEARNING_TYPES = {
+        ПО:   { label: 'Профессиональное обучение',  hasCatalog: true },
+        ДПО:  { label: 'Дополнительное проф. образование', hasCatalog: false },
+        ДО:   { label: 'Дополнительное образование', hasCatalog: false },
+        Курсы:{ label: 'Курсы',                     hasCatalog: false }
+    };
+    // Выбранные пункты по типам
+    const selections = { ПО: [], ДПО: [], ДО: [], Курсы: [] };
 
-    const chips = document.getElementById('chipArea');
-    PROFESSIONS.forEach(p => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'chip';
-        btn.textContent = p.name;
-        btn.dataset.name = p.name;
-        btn.onclick = () => {
-            if (selected.has(p.name)) { selected.delete(p.name); btn.classList.remove('active'); }
-            else { selected.add(p.name); btn.classList.add('active'); }
-            syncCards();
-        };
-        chips.appendChild(btn);
+    // Открытие секции типа в форме
+    function openType(type) {
+        const target = document.getElementById('type-block-' + type);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.style.boxShadow = '0 0 0 3px #2563eb';
+            setTimeout(() => { target.style.boxShadow = 'none'; }, 1500);
+        }
+    }
+
+    // Кнопки «Выбрать» в карточках каталога
+    document.querySelectorAll('.card .pick').forEach(btn => {
+        btn.onclick = () => openType(btn.dataset.type);
     });
 
-    function syncCards() {
-        document.querySelectorAll('.card').forEach(card => {
-            const name = card.dataset.name;
-            card.classList.toggle('picked', selected.has(name));
+    // Рендер блока одного типа
+    function typeBlockHTML(type) {
+        const t = LEARNING_TYPES[type];
+        let picker = '';
+        if (t.hasCatalog) {
+            picker = `
+                <div class="po-picker">
+                    <div class="form-row">
+                        <div style="grid-column:1/-1">
+                            <label>Выберите профессию из Перечня Приказа № 534</label>
+                            <select id="po-select-${type}">
+                                <option value="">— выберите отрасль и профессию —</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add" data-type="${type}" data-mode="catalog">Добавить из перечня</button>
+                    <div class="or-divider">или впишите свою</div>
+                    <div class="form-row">
+                        <div style="grid-column:1/-1">
+                            <label>Название вручную (профессия, должность, направление)</label>
+                            <input type="text" id="po-manual-${type}" placeholder="Например: Стропальщик, 80 часов">
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add" data-type="${type}" data-mode="manual">Добавить вручную</button>
+                </div>`;
+        } else {
+            picker = `
+                <div class="po-picker">
+                    <div class="form-row">
+                        <div style="grid-column:1/-1">
+                            <label>Название (направление, курс, программа)</label>
+                            <input type="text" id="po-manual-${type}" placeholder="Например: Повышение квалификации специалиста по охране труда">
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add" data-type="${type}" data-mode="manual">Добавить</button>
+                </div>`;
+        }
+        return `
+            <div class="type-block" id="type-block-${type}">
+                <h4 class="type-title">${type} <span>${t.label}</span></h4>
+                ${picker}
+                <table class="items-table">
+                    <thead><tr><th style="width:40px">№</th><th>Наименование</th><th style="width:90px">Код</th><th style="width:90px">Разряд</th><th style="width:50px"></th></tr></thead>
+                    <tbody id="items-body-${type}"></tbody>
+                </table>
+            </div>`;
+    }
+
+    function renderTypes() {
+        const area = document.getElementById('typesArea');
+        area.innerHTML = Object.keys(LEARNING_TYPES).map(typeBlockHTML).join('');
+
+        // Заполняем select для ПО (optgroup по отраслям)
+        const select = document.getElementById('po-select-ПО');
+        if (select) {
+            Object.keys(PROFESSIONS_BY_SECTION).forEach(section => {
+                const optg = document.createElement('optgroup');
+                optg.label = section;
+                PROFESSIONS_BY_SECTION[section].forEach(prof => {
+                    const opt = document.createElement('option');
+                    const codePart = (prof.c && prof.c !== '-') ? ' · код ' + prof.c : '';
+                    const rankPart = (prof.r && prof.r !== '-') ? ' · ' + prof.r + ' разряд' : '';
+                    opt.value = section + ' / ' + prof.n + (codePart ? ' (' + prof.c + ')' : '');
+                    opt.textContent = prof.n + codePart + rankPart;
+                    optg.appendChild(opt);
+                });
+                select.appendChild(optg);
+            });
+        }
+
+        // Обработчики кнопок «Добавить»
+        document.querySelectorAll('.btn-add').forEach(btn => {
+            btn.onclick = () => {
+                const type = btn.dataset.type;
+                const mode = btn.dataset.mode;
+                if (mode === 'catalog') {
+                    const sel = document.getElementById('po-select-' + type);
+                    const value = sel.value;
+                    if (!value) return;
+                    // value: "Отрасль / Название (код)"
+                    const slashIdx = value.indexOf(' / ');
+                    const section = value.slice(0, slashIdx);
+                    const rest = value.slice(slashIdx + 3);
+                    const m = rest.match(/^(.*?)(?: \(([\d,\s\-–]+)\))?$/);
+                    let name = m ? m[1] : rest;
+                    let code = m && m[2] ? m[2] : '';
+                    const prof = PROFESSIONS_BY_SECTION[section].find(p => p.n === name);
+                    addItem(type, name, { c: (prof && prof.c !== '-') ? prof.c : (code || ''), r: (prof && prof.r !== '-') ? prof.r : '' });
+                } else {
+                    const value = document.getElementById('po-manual-' + type).value.trim();
+                    if (!value) return;
+                    document.getElementById('po-manual-' + type).value = '';
+                    addItem(type, value);
+                }
+            };
         });
     }
-    document.querySelectorAll('.card .pick').forEach(btn => {
-        btn.onclick = () => {
-            const name = btn.closest('.card').dataset.name;
-            const chip = [...chips.children].find(c => c.dataset.name === name);
-            if (chip) chip.click();
-        };
-    });
 
-    // Auto-pick bundle professions (погрузчик/экскаватор в пакете)
-    document.querySelector('.bundle a[href="#form"]').addEventListener('click', () => {
-        const bundleNames = [
-            'Стропальщик (код 18897)',
-            'Машинист бульдозера (код 13583)',
-            'Машинист катка (код 13753)',
-            'Водитель погрузчика (код 11453)',
-            'Машинист экскаватора (код 14390)'
-        ];
-        bundleNames.forEach(n => {
-            if (!selected.has(n)) {
-                selected.add(n);
-                const chip = [...chips.children].find(c => c.dataset.name === n);
-                if (chip) chip.classList.add('active');
-            }
+    function addItem(type, value, meta) {
+        const item = meta ? Object.assign({ n: value }, meta) : { n: value, c: '', r: '' };
+        if (selections[type].some(x => x.n === item.n)) {
+            alert('Этот пункт уже добавлен.');
+            return;
+        }
+        selections[type].push(item);
+        renderTable(type);
+    }
+
+    function renderTable(type) {
+        const tbody = document.getElementById('items-body-' + type);
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        selections[type].forEach((item, i) => {
+            const tr = document.createElement('tr');
+            const tdN = document.createElement('td');
+            tdN.textContent = i + 1;
+            const tdV = document.createElement('td');
+            tdV.textContent = item.n;
+            const tdC = document.createElement('td');
+            tdC.textContent = item.c || '—';
+            const tdR = document.createElement('td');
+            tdR.textContent = item.r || '—';
+            const tdX = document.createElement('td');
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'btn-del';
+            del.textContent = '✕';
+            del.onclick = () => {
+                selections[type].splice(i, 1);
+                renderTable(type);
+            };
+            tdX.appendChild(del);
+            tr.appendChild(tdN); tr.appendChild(tdV); tr.appendChild(tdC); tr.appendChild(tdR); tr.appendChild(tdX);
+            tbody.appendChild(tr);
         });
-        syncCards();
-    });
+    }
+
+    renderTypes();
 
     // Endpoint приёма заявок: Google Apps Script Web App (EduPrograms)
     const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyC76Bl2zSpsTZIfDSfzoPECW7kIVwrmPGcEOMT3thmQWa4beTQJ2377Bjl3cJ26TYYAQ/exec';
@@ -440,6 +505,12 @@
             showMsg(msg, 'Заполните обязательные поля: организация и e-mail.', 'err');
             return;
         }
+        function fmtItem(it) {
+            let s = it.n;
+            if (it.c) s += ' (код ' + it.c + ')';
+            if (it.r) s += ' · ' + it.r + ' разряд';
+            return s;
+        }
         const values = {
             org: org,
             email: email,
@@ -447,7 +518,10 @@
             contact: document.getElementById('contact').value.trim(),
             phone: document.getElementById('phone').value.trim(),
             comment: document.getElementById('comment').value.trim(),
-            professions: [...selected].join('; ')
+            po: selections['ПО'].map(fmtItem).join('; '),
+            dpo: selections['ДПО'].map(fmtItem).join('; '),
+            do_: selections['ДО'].map(fmtItem).join('; '),
+            courses: selections['Курсы'].map(fmtItem).join('; ')
         };
 
         let sent = false;
@@ -470,7 +544,10 @@
                 add('contact', values.contact);
                 add('phone', values.phone);
                 add('comment', values.comment);
-                add('professions', values.professions);
+                add('po', values.po);
+                add('dpo', values.dpo);
+                add('do', values.do_);
+                add('courses', values.courses);
                 document.body.appendChild(f);
                 f.submit();
                 setTimeout(() => { iframe.remove(); f.remove(); }, 4000);
@@ -479,17 +556,15 @@
         }
 
         if (sent) {
-            showMsg(msg, 'Заявка отправлена! В течение 30 минут в рабочее время пришлём счёт и ссылку на оплату.', 'ok');
+            showMsg(msg, 'Заявка отправлена! В рабочее время пришлём счёт и ссылку на оплату на указанный e-mail.', 'ok');
             e.target.reset();
-            selected.clear();
-            chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            syncCards();
+            Object.keys(selections).forEach(k => { selections[k] = []; renderTable(k); });
             return;
         }
 
         showMsg(msg, 'Форма подключается. Пока отправьте заявку по почте:', 'err');
         const mailto = 'mailto:' + FALLBACK_EMAIL + '?subject=' + encodeURIComponent('Заявка EduPrograms') +
-            '&body=' + encodeURIComponent(JSON.stringify(payload, null, 2));
+            '&body=' + encodeURIComponent(JSON.stringify(values, null, 2));
         const a = document.createElement('a');
         a.href = mailto;
         a.textContent = 'Отправить заявку по почте';
