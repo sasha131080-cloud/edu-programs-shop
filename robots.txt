@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sasha131080-cloud.github.io/edu-programs-shop/sitemap.xml
