@@ -622,7 +622,8 @@
             po: selections['ПО'].map(fmtItem).join('; '),
             dpo: selections['ДПО'].map(fmtItem).join('; '),
             do_: selections['ДО'].map(fmtItem).join('; '),
-            courses: selections['Курсы'].map(fmtItem).join('; ')
+            courses: selections['Курсы'].map(fmtItem).join('; '),
+            source: 'site_main'
         };
 
         let sent = false;
@@ -649,6 +650,7 @@
                 add('dpo', values.dpo);
                 add('do', values.do_);
                 add('courses', values.courses);
+                add('source', values.source);
                 document.body.appendChild(f);
                 f.submit();
                 setTimeout(() => { iframe.remove(); f.remove(); }, 4000);
